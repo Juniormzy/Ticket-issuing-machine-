@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+  <body>
+    <h1>
+      Σύστημα έκδοσης εισιτηρίων ΜΕΤΡΟ
+    </h1>
+    <label for="ticketType">Τύπος εισιτηρίου [1-Ενιαίο 90', 2-Ημερήσιο, 3-Πέντε ημ., 4-Αεροδρομίου]: </label>
+    <input id="ticketType" type="number">
+    <br><br>
+    Είδος εισιτηρίου:
+    <br>
+    <input id="fullPrice" name="fullReduced" type="radio" checked>
+    <label for="fullPrice">Ολόκληρο</label>
+    <br>
+    <input id="reducedPrice" name="fullReduced" type="radio">
+    <label for="reducedPrice">Μειωμένο</label>
+    <br><br>
+    <label for="qty">Πλήθος εισιτηρίων: </label>
+    <input id="qty" type="number">
+    <br><br>
+    <button onclick="ticketCost()">Κόστος εισιτηρίων</button>
+    <br><br>
+    <p id="output">
+
+    </p>
+  </body>
+  <script>
+    function ticketCost() {
+      const SINGLE = 1;
+      const DAILY = 2;
+      const FIVE_D = 3;
+      const AEROPORT = 4;
+      const SINGLE_FULL = 1.2;
+      const SINGLE_REDUCED = 0.5;
+      const DAILY_FULL = 4.1;
+      const FIVE_D_FULL = 8.2;
+      const AEROPORT_FULL = 9;
+      const AEROPORT_REDUCED = 4.5;
+
+      var ticketType = Number(document.getElementById("ticketType").value);
+      var fullPrice = document.getElementById("fullPrice").checked;
+      var qty = Number(document.getElementById("qty").value);
+      var totCost;
+
+      if (qty <= 0) {
+        document.getElementById("output").innerHTML = "Μη έγκυρο πλήθος εισιτηρίων";
+        return;
+      }
+
+      if (fullPrice === true) {
+
+        switch (ticketType) {
+          case SINGLE:
+            totCost = qty * SINGLE_FULL;
+            document.getElementById("output").innerHTML = "Κόστος " + totCost + " €";
+            break;
+          case DAILY:
+            totCost = qty * DAILY_FULL;
+            document.getElementById("output").innerHTML = "Κόστος " + totCost + " €";
+            break;
+          case FIVE_D:
+            totCost = qty * FIVE_D_FULL;
+            document.getElementById("output").innerHTML = "Κόστος " + totCost + " €";
+            break;
+          case AEROPORT:
+            totCost = qty * AEROPORT_FULL;
+            document.getElementById("output").innerHTML = "Κόστος " + totCost + " €";
+            break;
+          default:
+            document.getElementById("output").innerHTML = "Μη έγκυρος τύπος εισιτηρίου";
+        }
+      
+      } else {
+
+        switch (ticketType) {
+          case SINGLE:
+            totCost = qty * SINGLE_REDUCED;
+            document.getElementById("output").innerHTML = "Κόστος " + totCost + " €";
+            break;
+          case AEROPORT:
+            totCost = qty * AEROPORT_REDUCED;
+            document.getElementById("output").innerHTML = "Κόστος " + totCost + " €";
+            break;
+          case DAILY:
+          case FIVE_D:
+            document.getElementById("output").innerHTML = "Ο επιλεγμένος τύπος εισιτήριου δεν διατίθεται σε μειωμένη τιμή";
+            break;
+          default:
+            document.getElementById("output").innerHTML = "Μη έγκυρος τύπος εισιτηρίου";
+        }
+
+      }
+
+    }
+
+  </script>
+
+</html>
